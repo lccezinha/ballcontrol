@@ -1,5 +1,7 @@
 var loadState = {
   preload: function() {
+    new BackgroundControl().create();
+
     var options = { font: '30px Courier', fill: '#ffffff' };
     var loadingLabel = game.add.text(80, 150, 'loading...', options);
 

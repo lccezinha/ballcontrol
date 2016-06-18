@@ -1,12 +1,6 @@
 var finishState = {
-  preload: function() {
-    game.load.image('sky', 'assets/sky.png');
-    game.load.image('ground', 'assets/platform.png');
-  },
-
   create: function() {
-    game.add.sprite(0, 0, 'sky');
-    game.add.sprite(0, game.world.height - 30, 'ground');
+    new BackgroundControl().create();
 
     var labelOptions = { font: "30px Arial", fill: "#ffffff" };
     labelScore = game.add.text(20, 180, 'Press SPACEBAR to Play', labelOptions);
@@ -21,6 +15,6 @@ var finishState = {
   },
 
   startGame: function() {
-    game.state.start('menu');
+    game.state.start('play');
   }
 };

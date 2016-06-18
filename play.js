@@ -6,8 +6,7 @@ var playState = {
   create: function() {
     score = 0;
 
-    game.add.sprite(0, 0, 'sky');
-    game.add.sprite(0, game.world.height - 30, 'ground');
+    new BackgroundControl().create();
 
     player = game.add.sprite((game.world.width / 2) - 40, game.world.height - 65, 'player');
     player.scale.setTo(0.7);

@@ -1,7 +1,6 @@
 var menuState = {
   create: function() {
-    game.add.sprite(0, 0, 'sky');
-    game.add.sprite(0, game.world.height - 30, 'ground');
+    new BackgroundControl().create();
 
     var labelOptions = { font: "30px Arial", fill: "#ffffff" };
     labelScore = game.add.text(20, 220, 'Press SPACEBAR to Play', labelOptions);
