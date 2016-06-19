@@ -1,4 +1,4 @@
-var cursors, player, ball, scoreLabel, messageLabel;
+var cursors, player, ball, scoreLabel;
 var score = 0;
 var PLAYER_SPEED = 300;
 
@@ -10,10 +10,10 @@ var playState = {
 
     player = game.add.sprite((game.world.width / 2) - 40, game.world.height - 65, 'player');
     player.scale.setTo(0.7);
+    game.physics.arcade.enable(player);
+    player.body.collideWorldBounds = true;
 
     ball = game.add.sprite((game.world.width / 2) - 40, 0, 'ball');
-
-    game.physics.arcade.enable(player);
     game.physics.arcade.enable(ball);
 
     ball.body.gravity.y = 500;
@@ -23,7 +23,7 @@ var playState = {
     cursors = game.input.keyboard.createCursorKeys();
 
     var labelOptions = { font: "30px Arial", fill: "#ffffff" };
-    labelScore = game.add.text(20, 20, 0, labelOptions);
+    scoreLabel = game.add.text(20, 20, 0, labelOptions);
   },
 
   update: function() {
@@ -49,7 +49,7 @@ var playState = {
 
   incrementPoints: function() {
     score += 1;
-    labelScore.text = score;
+    scoreLabel.text = score;
   },
 
   moveBall: function() {
