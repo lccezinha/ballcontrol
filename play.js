@@ -10,10 +10,10 @@ var playState = {
 
     player = game.add.sprite((game.world.width / 2) - 40, game.world.height - 65, 'player');
     player.scale.setTo(0.7);
+    game.physics.arcade.enable(player);
+    player.body.collideWorldBounds = true;
 
     ball = game.add.sprite((game.world.width / 2) - 40, 0, 'ball');
-
-    game.physics.arcade.enable(player);
     game.physics.arcade.enable(ball);
 
     ball.body.gravity.y = 500;
