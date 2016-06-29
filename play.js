@@ -1,4 +1,4 @@
-var cursors, player, ball, scoreLabel;
+var cursors, player, ball, ball2, scoreLabel;
 var score = 0;
 var PLAYER_SPEED = 300;
 
@@ -14,6 +14,7 @@ var playState = {
     player.body.collideWorldBounds = true;
 
     ball = game.add.sprite((game.world.width / 2) - 40, 0, 'ball');
+    ball2 = game.add.sprite((game.world.width / 2) - 40, 0, 'ball');
     game.physics.arcade.enable(ball);
 
     ball.body.gravity.y = 500;
@@ -27,9 +28,14 @@ var playState = {
   },
 
   update: function() {
-    game.physics.arcade.overlap(player, ball, this.handleCollision, null, this);
+    game.physics.arcade.overlap(player, ball, this.handleCollision, this.teste, this);
+    if (score > 3){
+      game.physics.arcade.overlap(player, ball2, this.handleCollision, this.teste, this);
+      game.physics.arcade.enable(ball2);
+      this.createBall()
+    }
 
-    if (ball.y >= game.world.height - 65) {
+    if (ball.y >= game.world.height - 65 || (ball2.y >= game.world.height - 65)) {
       this.finishGame();
     };
 
@@ -42,9 +48,15 @@ var playState = {
     };
   },
 
+  teste: function(obj1, obj2){
+     console.log(obj2)
+    this.moveBall(obj2);
+
+  },
+
   handleCollision: function() {
     this.incrementPoints();
-    this.moveBall();
+
   },
 
   incrementPoints: function() {
@@ -52,9 +64,15 @@ var playState = {
     scoreLabel.text = score;
   },
 
-  moveBall: function() {
-    ball.body.velocity.x = Math.random() * (-200 + (-200)) + 200;
-    ball.body.velocity.y = -500;
+  createBall: function(){
+    ball2.body.gravity.y = 500;
+    ball2.body.collideWorldBounds = true;
+    ball2.body.bounce.setTo(0.9, 0.9);
+  },
+
+  moveBall: function(selected) {
+    selected.body.velocity.x = Math.random() * (-200 + (-200)) + 200;
+    selected.body.velocity.y = -500;
   },
 
   finishGame: function() {
