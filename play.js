@@ -19,6 +19,8 @@ var playState = {
     balls = game.add.physicsGroup();
     this.createBall();
 
+    game.time.events.loop(Phaser.Timer.SECOND * 5, this.createBall, this);
+
     cursors = game.input.keyboard.createCursorKeys();
 
     var labelOptions = { font: "30px Arial", fill: "#ffffff" };
@@ -28,10 +30,6 @@ var playState = {
   update: function() {
     game.physics.arcade.overlap(player, balls, this.incrementPoints, this.handleCollision, this);
     game.physics.arcade.collide(balls, ground, this.finishGame, null, this);
-
-    if (score > 1 && score > 3) {
-      this.createBall();
-    };
 
     player.body.velocity.x = 0;
 
