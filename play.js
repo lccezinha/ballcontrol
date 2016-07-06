@@ -1,6 +1,6 @@
 var cursors, player, balls, ground, scoreLabel;
 var score = 0;
-var PLAYER_SPEED = 300;
+var PLAYER_SPEED = 450;
 
 var playState = {
   create: function() {
@@ -50,8 +50,8 @@ var playState = {
   },
 
   moveBall: function(ball) {
-    ball.body.velocity.x = Math.random() * (-200 + (-200)) + 200;
-    ball.body.velocity.y = -500;
+    ball.body.velocity.x = Math.random() * (-300 + (-300)) + 300;
+    ball.body.velocity.y = -600;
   },
 
   createBall: function() {
