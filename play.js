@@ -17,13 +17,7 @@ var playState = {
     player.body.collideWorldBounds = true;
 
     balls = game.add.physicsGroup();
-
-    ball = balls.create((game.world.width / 2) - 40, 0, 'ball');
-    game.physics.arcade.enable(ball);
-
-    ball.body.gravity.y = 500;
-    ball.body.collideWorldBounds = true;
-    ball.body.bounce.setTo(0.9, 0.9);
+    this.createBall();
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -33,7 +27,11 @@ var playState = {
 
   update: function() {
     game.physics.arcade.overlap(player, balls, this.incrementPoints, this.handleCollision, this);
-    game.physics.arcade.collide(ball, ground, this.finishGame, null, this);
+    game.physics.arcade.collide(balls, ground, this.finishGame, null, this);
+
+    if (score > 1 && score > 3) {
+      this.createBall();
+    };
 
     player.body.velocity.x = 0;
 
@@ -56,6 +54,15 @@ var playState = {
   moveBall: function(ball) {
     ball.body.velocity.x = Math.random() * (-200 + (-200)) + 200;
     ball.body.velocity.y = -500;
+  },
+
+  createBall: function() {
+    ball = balls.create((game.world.width / 2) - 40, 0, 'ball');
+    game.physics.arcade.enable(ball);
+
+    ball.body.gravity.y = 500;
+    ball.body.collideWorldBounds = true;
+    ball.body.bounce.setTo(0.9, 0.9);
   },
 
   finishGame: function() {
