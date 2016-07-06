@@ -1,4 +1,4 @@
-var cursors, player, ball, ground, scoreLabel;
+var cursors, player, balls, ground, scoreLabel;
 var score = 0;
 var PLAYER_SPEED = 300;
 
@@ -16,7 +16,9 @@ var playState = {
     game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
 
-    ball = game.add.sprite((game.world.width / 2) - 40, 0, 'ball');
+    balls = game.add.physicsGroup();
+
+    ball = balls.create((game.world.width / 2) - 40, 0, 'ball');
     game.physics.arcade.enable(ball);
 
     ball.body.gravity.y = 500;
@@ -30,7 +32,7 @@ var playState = {
   },
 
   update: function() {
-    game.physics.arcade.overlap(player, ball, this.handleCollision, null, this);
+    game.physics.arcade.overlap(player, balls, this.incrementPoints, this.handleCollision, this);
     game.physics.arcade.collide(ball, ground, this.finishGame, null, this);
 
     player.body.velocity.x = 0;
@@ -42,17 +44,16 @@ var playState = {
     };
   },
 
-  handleCollision: function() {
-    this.incrementPoints();
-    this.moveBall();
-  },
-
   incrementPoints: function() {
     score += 1;
     scoreLabel.text = score;
   },
 
-  moveBall: function() {
+  handleCollision: function(player, ball) {
+    this.moveBall(ball);
+  },
+
+  moveBall: function(ball) {
     ball.body.velocity.x = Math.random() * (-200 + (-200)) + 200;
     ball.body.velocity.y = -500;
   },
