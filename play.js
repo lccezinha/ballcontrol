@@ -1,4 +1,4 @@
-var cursors, player, ball, scoreLabel;
+var cursors, player, ball, ground, scoreLabel;
 var score = 0;
 var PLAYER_SPEED = 300;
 
@@ -7,6 +7,9 @@ var playState = {
     score = 0;
 
     new BackgroundControl().create();
+
+    ground = game.add.sprite(0, game.world.height - 30, 'ground');
+    game.physics.arcade.enable(ground);
 
     player = game.add.sprite((game.world.width / 2) - 40, game.world.height - 65, 'player');
     player.scale.setTo(0.7);
@@ -28,10 +31,7 @@ var playState = {
 
   update: function() {
     game.physics.arcade.overlap(player, ball, this.handleCollision, null, this);
-
-    if (ball.y >= game.world.height - 65) {
-      this.finishGame();
-    };
+    game.physics.arcade.collide(ball, ground, this.finishGame, null, this);
 
     player.body.velocity.x = 0;
 
